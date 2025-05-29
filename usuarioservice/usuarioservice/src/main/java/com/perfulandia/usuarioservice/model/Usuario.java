@@ -1,7 +1,7 @@
 package com.perfulandia.usuarioservice.model;
 import jakarta.persistence.*;
 import lombok.*;
-//aaa
+//aasasas
 @Entity
 @Data
 @AllArgsConstructor
