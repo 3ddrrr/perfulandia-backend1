@@ -1,5 +1,4 @@
 package com.perfulandia.usuarioservice.model;
-
 import jakarta.persistence.*;
 import lombok.*;
 
