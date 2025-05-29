@@ -1,5 +1,5 @@
 package com.perfulandia.carritoservice.model;
-//hhaqqq
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +14,6 @@ public class Carrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long usuarioId; // ID del usuario dueño del carrito
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
