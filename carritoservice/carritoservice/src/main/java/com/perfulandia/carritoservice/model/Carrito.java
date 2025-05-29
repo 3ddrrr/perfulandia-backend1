@@ -1,5 +1,5 @@
 package com.perfulandia.carritoservice.model;
-//hhaa
+//hhaqqq
 import jakarta.persistence.*;
 import lombok.*;
 
