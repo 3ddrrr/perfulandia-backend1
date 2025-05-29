@@ -1,85 +1,63 @@
-# Perfulandia SPA - Sistema de Ventas de Perfumes
+# Perfulandia SPA - Sistema de Ventas de Perfumes - Arquitectura de Microservicios
 
-**Perfulandia SPA** es un proyecto académico desarrollado bajo arquitectura de **microservicios**,
-con el objetivo de modernizar el sistema monolítico original. Está orientado a la venta de perfumes, 
+**Perfulandia SPA** es un proyecto académico de una tienda online de perfumes implementada con una arquitectura de microservicios, desarrollada con Spring Boot,
+con el objetivo de modernizar el sistema monolítico original. El sistema se componer de diversos microservicios
 integrando múltiples módulos que trabajan de forma independiente para facilitar el mantenimiento, la escalabilidad y la implementación continua.
 
 
-# Plan de Migración
+## Descripción General
 
-El proyecto sigue una estrategia completa para la migración desde un sistema monolítico a microservicios, basada en los siguientes pasos:
+El sistema se compone de tres microservicios principales:
 
+1. **UsuarioService**: Gestiona la información de los usuarios/clientes
+2. **ProductService**: Administra el catálogo de productos/perfumes
+3. **CarritoService**: Maneja los carritos de compra de los clientes
 
-# 1. Análisis del sistema actual
-- Identificación de las funciones clave del sistema monolítico de Perfulandia.
-- Clasificación de funcionalidades por dominio (usuarios, productos, carrito, pedidos, boletas).
+Cada microservicio tiene su propia base de datos independiente y se comunica con los demás mediante APIs REST.
 
-# 2. División en microservicios
-- Separación lógica de responsabilidades:
-  - `usuarioservice`: registro y gestión de usuarios.
-  - `productoservice`: gestión de perfumes.
-  - `carritoservice`: operaciones del carrito de compras.
-- Cada servicio cuenta con su base de datos independiente en MySQL.
+## Microservicios - Cada servicio se comunica mediante APIs REST, y se conecta a su propia base de datos MySQL.
 
-# 3. Pruebas piloto
-- Se desarrollan prototipos funcionales de cada microservicio.
-- Se realizan pruebas de integración con Postman para validar las rutas y la conexión entre servicios.
+### 1. UsuarioService : registro y gestión de usuarios.
+- **Puerto**: 8081
+- **Base de datos**: `perfulandia_usuarios`
+- **Funcionalidades**:
+  - CRUD de usuarios
+  - Gestión de roles (ADMIN, GERENTE, USUARIO)
+  - Autenticación básica
 
-# 4. Contenerización con Docker
-- Se prepara el entorno para contenerizar cada servicio de forma independiente.
-- Se trabaja en un `docker-compose.yml` para levantar todos los servicios localmente de forma orquestada.
+### 2. ProductService : gestión de perfumes.
+- **Puerto**: 8082
+- **Base de datos**: `perfulandia_productos`
+- **Funcionalidades**:
+  - CRUD de productos/perfumes
+  - Consulta de catálogo
+  - Integración con UsuarioService para validaciones
 
-# 5. Implementación de CI/CD
-- Planificación de pipelines con GitHub Actions:
-  - Compilación automática.
-  - Ejecución de pruebas.
-  - Despliegue en ambientes de prueba.
+### 3. CarritoService: operaciones del carrito de compras.
+- **Puerto**: 8083
+- **Base de datos**: `perfulandia_carritos`
+- **Funcionalidades**:
+  - Gestión de carritos por usuario
+  - Cálculo automático de totales
+  - Agregar/eliminar productos del carrito
+  - Integración con UsuarioService y ProductService
 
-# 6. Migración de datos
-- Las bases de datos se configuran por servicio.
-- Se define una estrategia para trasladar datos desde el sistema monolítico a las nuevas estructuras normalizadas.
+## Requisitos Técnicos
 
-# 7. Pruebas de integración y carga
-- Pruebas automáticas con **Postman** y **Newman**.
-- Pruebas de carga y estrés con **k6**.
-
-
-
-# Microservicios Actuales
-
-# 1. "usuarioservice"
-- Registro y gestión de usuarios.
-- Endpoint base: `/api/usuarios`
-
-# 2. "productoservice"
-- Administración de perfumes: nombre, precio, descripción y stock.
-- Endpoint base: `/api/productos`
-
-# 3. "carritoservice"
-- Agregado y eliminación de productos en el carrito por parte de los usuarios.
-- Endpoint base: `/api/carrito`
-
-> Cada servicio se comunica mediante APIs REST, y se conecta a su propia base de datos MySQL.
-
-
-
-# Tecnologías Utilizadas
-
-- Java 21
-- Spring Boot 3.5.0
+- Java 17+
+- Spring Boot 3.1.0
+- MySQL 8.0+
 - Maven
-- Spring Web y Spring Data JPA
 - Lombok
-- MySQL
-- Postman & Newman
-- Docker (en progreso)
-- GitHub Actions (planificado)
-- k6 (planificado)
+
+## Instalación
+
+1. Clonar el repositorio
+   git clone https://github.com/3ddrrr/perfulandia.git
+2. Configurar las bases de datos en MySQL
+3. Ejecutar cada microservicio por separado
+4. Probar los endpoints con Postman
 
 
-# Cómo Ejecutar el Proyecto
 
-1. Clona el repositorio:
-gitbash
-git clone https://github.com/3ddrrr/perfulandia.git
-cd perfulandia
+
